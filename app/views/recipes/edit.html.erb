@@ -1,0 +1,16 @@
+<div class="box">
+  <% content_for :title, "Editing recipe" %>
+
+  <h1 class="title is-3">Editing Recipe</h1>
+
+  <%= render "form", recipe: @recipe %>
+
+  <br>
+
+  <div class="level">
+    <div class="level-left">
+      <%= link_to "Show This Recipe", @recipe, class:"button is-dark level-item" %>
+      <%= link_to "Back", :back, class:"button is-dark level-item" %>
+    </div>
+  </div>
+</div>

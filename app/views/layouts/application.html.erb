@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+ <html>
+
+ <head>
+     <title><%= content_for(:title) || "CookBook" %></title>
+     <meta name="viewport" content="width=device-width,initial-scale=1">
+     <meta name="apple-mobile-web-app-capable" content="yes">
+     <meta name="mobile-web-app-capable" content="yes">
+     <%= csrf_meta_tags %>
+     <%= csp_meta_tag %>
+
+     <%= yield :head %>
+
+     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+     <link rel="icon" href="/icon.png" type="image/png">
+     <link rel="icon" href="/icon.svg" type="image/svg+xml">
+     <link rel="apple-touch-icon" href="/icon.png">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+
+     <%# Includes all stylesheet files in app/assets/stylesheets %>
+     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+     <%= javascript_importmap_tags %>
+     <%= javascript_include_tag 'alert_button', 'data-turbo-track': 'reload', defer: true %>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+ </head>
+
+  <body>
+    <div id="page-container">
+      <div id="content-wrapper">
+        <%= render "home/header" %>
+        <div class="section">
+          <div class="container is-max-tablet">
+            <% if notice %>
+              <%= render "layouts/alerts" %>
+            <% end %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+      <%= render "home/footer" %>
+    </div>
+  </body>
+
+ </html>

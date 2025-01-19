@@ -1,0 +1,61 @@
+<h1 class="title is-3">Search</h1>
+
+<div class="box">
+<%= form_with url: search_recipes_path, method: :post do |form| %>
+    <div class="field">
+        <p class="control is-expanded has-icons-left">
+            <%= form.search_field :title_search, oninput: "this.form.requestSubmit()", class:"input", placeholder:"Find a Recipe"%>
+            <span class="icon is-small is-left">
+            <i class="fas fa-search"></i>
+            </span>
+        </p>
+    </div>
+
+    <div class="field">
+        <%= form.label :tags, "Filter by Tags", class:"label"%>
+        <% Tag.all.each do |tag| %>
+            <%= form.label :tag_ids, class: "" do %>
+            <!-- Generate an id for the checkbox based on the tag id -->
+            <%= form.check_box :tag_ids, { 
+                multiple: true, 
+                onchange: "this.form.requestSubmit()", 
+                class: "checkbox-tag", 
+                id: "tag_#{tag.id}" 
+                }, tag.id, nil %>
+            <!-- Associate label with the checkbox using the for attribute -->
+            <%= label_tag "tag_#{tag.id}", tag.name, class: "tag is-clickable is-hoverable" %>
+            <% end %>
+            <!--
+            <%= form.label :tag_ids, class:"tag" do%>
+                <%= form.check_box :tag_ids, { multiple: true, onchange:"this.form.requestSubmit()", class: "checkbox-tag"}, tag.id, nil%>
+                <%= tag.name %>
+            <% end %>
+            -->
+        <% end %>
+    </div>
+    
+    <div class="field">
+        <div class="level">
+            <div class="level-left"
+                <p class="control level-item">
+                    <button class="button is-primary">
+                    Search 
+                    </button>
+                </p>
+            </div>
+            <div class="level-right">
+                <p><strong>Sort By:</strong></p>
+                <div class="select level-item">
+                    <%= form.select :sort_by, options_for_select([['Newest', 'newest'], ['Oldest', 'oldest'], ['Title A-Z', 'title_asc'], ['Title Z-A', 'title_desc']], selected: params[:sort_by]), {} , { onchange: "this.form.requestSubmit()" } %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
+</div>
+    
+<div class="tags">
+</div>
+
+<div id="search_results" class="fixed-grid">
+</div>

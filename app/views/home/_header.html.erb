@@ -1,0 +1,47 @@
+<nav class="navbar  has-background-primary-dark " role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%= link_to root_path, class:"navbar-item" do%>
+      <p class="title has-text-primary-dark-invert">CookBook</p>
+    <% end %>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <% if user_signed_in? %>
+        <%= link_to "Add Recipe", new_recipe_path, class:"navbar-item" %>
+      <% end %>
+      <%= link_to "Search", search_path, class:"navbar-item" %>
+      <%= link_to "About Us", home_about_path, class:"navbar-item" %>
+      <div class="navbar-item">
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <% if user_signed_in? %>
+        <p class="navbar-item">Hello <%= current_user.name %>!</p>
+        <% if current_user.avatar.attached? && current_user.avatar.representable? %>
+          <figure class="navbar-item image is-100x100">
+            <%= image_tag current_user.avatar.variant(:thumb), class:"is-rounded"%>
+          </figure>
+        <% end %>
+        <div class="buttons navbar-item">
+        <%= link_to "Edit Profile", edit_user_registration_path, class:" button is-dark" %>
+        <%= link_to "Sign Out", destroy_user_session_path, data: {turbo_method: :delete}, class:" button is-danger is-dark" %>
+        <% else %>
+        <div class="buttons navbar-item">
+        <%= link_to "Sign Up", new_user_registration_path, class:" button is-primary is-dark" %>
+        <%= link_to "Sign In", user_session_path, class:"button is-dark" %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+

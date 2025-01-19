@@ -1,0 +1,45 @@
+:root {
+	--bulma-primary-h: 13deg;
+	--bulma-primary-s: 88%;
+	--bulma-primary-l: 55%;
+	--bulma-link-h: 200deg;
+	--bulma-link-s: 35%;
+	--bulma-link-l: 49%;
+	--bulma-info-h: 203deg;
+	--bulma-info-s: 75%;
+	--bulma-info-l: 78%;
+	--bulma-danger-h: 350deg;
+	--bulma-danger-s: 75%;
+	--bulma-danger-l: 19%;
+	background-image: url("tile2.png");
+	background-repeat: repeat;
+}
+
+#page-container {
+	position: relative;
+	min-height: 100vh;
+  }
+  
+  #content-wrapper {
+	padding-bottom: 10rem;    /* Footer height */
+  }
+  
+  #footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 10rem;            /* Footer height */
+  }
+  
+
+  /* Hide the checkbox but keep it accessible */
+.checkbox-tag {
+	display: none;
+  }
+  
+  /* Add custom styles for the checked state when the checkbox is selected */
+  .checkbox-tag:checked + .tag {
+	background-color: hsl(var(--bulma-primary-h), var(--bulma-primary-s), var(--bulma-primary-l));  /* Bulma's is-primary color */
+	color: black;
+  }
+  

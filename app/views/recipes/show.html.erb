@@ -1,0 +1,14 @@
+<%= render @recipe %>
+
+<div class="level">
+  <div class="level-left">
+    <%= link_to "Back", :recipes, class:"button is-dark level-item" %>
+  </div>
+  <% if current_user == @recipe.user %>
+  <div class="level-right">
+    <%= link_to "Edit Recipe", edit_recipe_path(@recipe), class:"button is-dark level-item" %>
+    <%= button_to "Destroy Recipe", @recipe, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"button is-danger is-dark level-item" %>
+  </div>
+  <% end %>
+  
+</div>

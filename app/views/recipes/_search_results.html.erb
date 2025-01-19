@@ -1,0 +1,11 @@
+<div class="fixed-grid has-2-cols">
+  <div id="recipes" class="grid">
+    <% @recipes.each do |recipe| %>
+      <div class="cell">
+        <%= link_to recipe do %> 
+          <%= render "recipes/card", recipe: recipe%> 
+        <% end %> 
+      </div>
+    <% end %>
+  </div>
+</div>

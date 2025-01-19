@@ -1,0 +1,15 @@
+.ce-block {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  
+  .ce-toolbar__plus,
+  .ce-toolbar__settings-btn,
+  .ce-paragraph {
+    color: white !important;
+  }
+  .ce-toolbar__plus:hover,
+  .ce-toolbar__settings-btn:hover {
+    color: #333 !important;
+  }
+  

@@ -1,0 +1,63 @@
+<%= form_with(model: recipe, data: {
+  controller: "editor"
+}) do |form| %>
+  <% if recipe.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+        <% recipe.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title, class:"label" %>
+    <%= form.text_field :title, class:"input" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ingredients, class:"label" %>
+    <%= form.textarea :ingredients, class:"textarea" %>
+  </div>
+
+  <%= form.hidden_field :content, id: "recipe_content_hidden" %>
+
+  <div class="field">
+    <label class="label">Recipe Content</label>
+    <div class="content" style="padding-left: 40px;" id="recipe_content" data-editor-target="recipe_content">
+    </div>
+  </div>
+  
+
+  <div class="field">
+    <%= form.number_field :user_id, id: :recipe_user_id, class:"input", value:current_user.id, type: :hidden %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image, class:"label" do%>
+    Image
+    <div class="file">
+        <%= form.file_field :image, class:"file-input" %>
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="file-label"> Choose a file… </span>
+        </span>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tag, "Tags",  class:"label"%>  <i>(Enter comma-seperated list of tags.)</i>
+    <%= form.text_field :tags, value: recipe.tags.map(&:name).join(","), class:"input", placeholder:"Italian, Dinner, Desert..."%>
+  </div>
+
+
+  <div>
+    <%= form.submit class:"button is-primary is-dark" %>
+  </div>
+<% end %>

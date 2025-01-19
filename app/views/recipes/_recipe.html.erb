@@ -1,0 +1,75 @@
+<%= turbo_frame_tag dom_id(recipe) do %>
+  <div id="<%= dom_id recipe %>" class="card">
+    <% if recipe.image.attached? && recipe.image.representable? %>
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <%= image_tag recipe.image.variant(:thumb)%>
+        </figure>
+      </div>
+    <% end %>
+    <div class="card-content">
+      <div class="level">
+        <div class="media level-left">
+          <% if recipe.user.avatar.attached? && recipe.user.avatar.representable? %>
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <%= image_tag recipe.user&.avatar.variant(:thumb), class:"is-rounded"%>
+              </figure>
+            </div>
+          <% end %>
+          <div class="level-item">
+            <div class="media-content">
+              <p class="title is-4"><%= recipe.title%></p>
+              <p class="subtitle is-6">By: <%= recipe.user&.name%></p>
+            </div>
+          </div>
+        </div>
+        <div class="level-right">
+          <div class="level-item has-text-centered">
+            <div>
+
+              <% if user_signed_in? %>
+                <% if current_user && recipe.likes.exists?(user_id: current_user.id )%>
+                  <%= button_to unlike_recipe_path(recipe), method: :delete do %>
+                    <span class="icon is-medium has-text-primary title">
+                      <i class='bx bxs-hot bx-flip-horizontal' ></i>
+                    </span>
+                  <% end %>
+                <% else %>
+                  <%= button_to like_recipe_path(recipe) do %>
+                    <span class="icon is-medium title">
+                      <i class='bx bxs-hot bx-tada bx-flip-horizontal' ></i>
+                    </span>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= link_to "Like", new_user_session_path, data: { turbo_frame: "_top" }%>
+              <% end %>
+              <p class="heading"><%= pluralize(recipe.likes.size, 'Like')%></p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <p>
+        <strong>Ingredients:</strong>
+        <%= recipe.ingredients %>
+        </p>
+
+        <div class="content">
+          <%= display_content(recipe.content)%>
+        </div>
+
+        <div class="tags">
+          <% recipe.tags.each do |tag| %>
+            <%= link_to tag do %>
+              <span class="tag is-hoverable"><%= tag.name.titleize %></span>
+            <% end %>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>
